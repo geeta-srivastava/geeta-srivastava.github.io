@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geeta Srivastava — ML & AI Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --bg:        #F7F5F0;
+      --surface:   #FFFFFF;
+      --border:    #E8E3DB;
+      --text:      #1C1917;
+      --muted:     #78716C;
+      --accent:    #2D6A4F;
+      --accent2:   #52796F;
+      --accent-bg: #EAF2EE;
+      --tag-bg:    #F0F7F4;
+      --tag-text:  #2D6A4F;
+      --serif:     'DM Serif Display', Georgia, serif;
+      --sans:      'DM Sans', system-ui, sans-serif;
+      --radius:    12px;
+      --shadow:    0 2px 16px rgba(0,0,0,.06);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(45,106,79,.05) 0%, transparent 50%),
+        radial-gradient(circle at 85% 80%, rgba(82,121,111,.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ────────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(247,245,240,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .nav-name {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: .01em;
+    }
+    .nav-links { display: flex; gap: 1.8rem; }
+    .nav-links a {
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── LAYOUT ─────────────────────────────────────────────── */
+    .wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 3rem);
+      position: relative; z-index: 1;
+    }
+
+    /* ── HERO ───────────────────────────────────────────────── */
+    #hero { padding: 5rem 0 3.5rem; }
+    .hero-layout {
+      display: flex;
+      align-items: flex-start;
+      gap: 2.5rem;
+    }
+    .hero-text { flex: 1; min-width: 0; }
+    .hero-figure { flex-shrink: 0; margin-top: .5rem; }
+    .hero-figure img {
+      width: 148px;
+      height: 148px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
+      border: 3px solid var(--surface);
+      box-shadow: 0 0 0 2px var(--accent2), var(--shadow);
+      display: block;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      background: var(--accent-bg);
+      padding: .3rem .75rem;
+      border-radius: 999px;
+      margin-bottom: 1.2rem;
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(2.6rem, 7vw, 4rem);
+      line-height: 1.12;
+      color: var(--text);
+      margin-bottom: .6rem;
+    }
+    .hero-name em { font-style: italic; color: var(--accent); }
+    .hero-tagline {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 1.8rem;
+      font-weight: 300;
+    }
+    .hero-contacts { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .chip {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .8rem; font-weight: 500;
+      padding: .35rem .85rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      transition: border-color .2s, color .2s, box-shadow .2s;
+    }
+    .chip:hover {
+      border-color: var(--accent2);
+      color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-bg);
+    }
+    .chip svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .hero-divider {
+      width: 48px; height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-top: 2.5rem;
+      opacity: .4;
+    }
+
+    /* ── SECTIONS ───────────────────────────────────────────── */
+    section { padding: 3rem 0; }
+    .section-label {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: .7rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── ABOUT ──────────────────────────────────────────────── */
+    #about p { color: var(--muted); font-size: .95rem; max-width: 640px; }
+    #about p + p { margin-top: .8rem; }
+
+    /* ── SKILLS ─────────────────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1rem;
+      margin-top: .5rem;
+    }
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.2rem;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .skill-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .skill-card-title {
+      font-weight: 600;
+      font-size: .82rem;
+      color: var(--accent);
+      margin-bottom: .55rem;
+      letter-spacing: .04em;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .tag {
+      font-size: .72rem;
+      font-weight: 500;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: .18rem .6rem;
+      border-radius: 6px;
+    }
+    .tag.gray { background: #F3F4F6; color: #6B7280; }
+
+    /* ── TIMELINE ───────────────────────────────────────────── */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+    .tl-item { padding-left: 1.6rem; position: relative; margin-bottom: 2rem; }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-dot {
+      position: absolute;
+      left: -4px; top: 6px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 1px var(--accent2);
+    }
+    .tl-meta {
+      display: flex; align-items: baseline;
+      flex-wrap: wrap; gap: .5rem;
+      margin-bottom: .25rem;
+    }
+    .tl-role { font-weight: 600; font-size: .95rem; }
+    .tl-org { font-size: .82rem; color: var(--accent2); font-weight: 500; }
+    .tl-period {
+      margin-left: auto;
+      font-size: .75rem; color: var(--muted);
+      background: var(--accent-bg);
+      padding: .15rem .55rem;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .tl-desc { font-size: .88rem; color: var(--muted); margin-top: .3rem; }
+    .tl-pills { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .6rem; }
+
+    /* ── PUBLICATIONS ───────────────────────────────────────── */
+    .pub-list { display: flex; flex-direction: column; gap: .85rem; }
+    .pub-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: .9rem 1.1rem;
+    }
+    .pub-type {
+      font-size: .68rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: .3rem;
+    }
+    .pub-title { font-size: .88rem; font-weight: 500; line-height: 1.45; color: var(--text); }
+    .pub-venue { font-size: .78rem; color: var(--muted); margin-top: .25rem; font-style: italic; }
+
+    /* ── EDUCATION ──────────────────────────────────────────── */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.2rem;
+    }
+    .edu-degree { font-weight: 600; font-size: .88rem; margin-bottom: .2rem; }
+    .edu-inst { font-size: .8rem; color: var(--accent2); }
+    .edu-detail { font-size: .78rem; color: var(--muted); margin-top: .4rem; }
+
+    /* ── CONTACT ────────────────────────────────────────────── */
+    #contact { padding-bottom: 4rem; }
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between;
+      gap: 1rem;
+    }
+    .contact-box p { font-size: .88rem; color: var(--muted); max-width: 380px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: .82rem; font-weight: 600;
+      padding: .6rem 1.4rem;
+      border-radius: 999px;
+      transition: background .2s, transform .15s;
+    }
+    .btn:hover { background: var(--accent2); transform: translateY(-1px); }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.4rem clamp(1.5rem, 5vw, 4rem);
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between;
+      gap: .5rem;
+      font-size: .75rem; color: var(--muted);
+      position: relative; z-index: 1;
+    }
+
+    /* ── FADE-IN ────────────────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    /* ── MOBILE ─────────────────────────────────────────────── */
+    @media (max-width: 560px) {
+      .nav-links { gap: 1rem; }
+      .tl-period { margin-left: 0; }
+      .contact-box { flex-direction: column; align-items: flex-start; }
+      .hero-layout { flex-direction: column-reverse; gap: 1.5rem; }
+      .hero-figure img { width: 108px; height: 108px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────────────────────────── -->
+<nav>
+  <span class="nav-name">Geeta Srivastava</span>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#publications">Research</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ── HERO ────────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-layout">
+      <div class="hero-text">
+        <span class="hero-eyebrow">PhD Researcher · ML & AI Engineer</span>
+        <h1 class="hero-name">Geeta<br><em>Srivastava</em></h1>
+        <p class="hero-tagline">
+          Building intelligent systems at the intersection of control theory,
+          deep learning, and robotics — from mathematical models to real hardware.
+        </p>
+        <div class="hero-contacts">
+          <a class="chip" href="mailto:geetasrivastava@nitsikkim.ac.in">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+            geetasrivastava@nitsikkim.ac.in
+          </a>
+          <a class="chip" href="tel:+919870948974">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 3.1 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16v.92z"/></svg>
+            +91 98709 48974
+          </a>
+          <a class="chip" href="#" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+            Google Scholar
+          </a>
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Sikkim, India
+          </span>
+        </div>
+        <div class="hero-divider"></div>
+      </div>
+      <figure class="hero-figure">
+        <img src="data:image/jpeg;base64,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" alt="Geeta Srivastava" />
+      </figure>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ──────────────────────────────────────────────────── -->
+  <section id="about" class="fade-up">
+    <div class="section-label">About</div>
+    <p>
+      I'm a PhD researcher at NIT Sikkim, specialising in AI-driven control systems for
+      autonomous vehicles — from underwater robots (AUVs) to drones (UAVs). My work bridges
+      classical control theory with modern machine learning: building controllers that are
+      not just optimised on paper, but validated on real hardware.
+    </p>
+    <p>
+      Before academia, I spent four years at Tata Consultancy Services across API engineering,
+      EU medical device regulatory affairs, and 3D medical imaging — which gave me a strong
+      sense of how rigorous technical work translates into real-world impact.
+    </p>
+    <p>
+      Currently deepening my expertise in PyTorch, computer vision (Self-Organizing Maps for
+      robotic dynamics), and RAG-based search systems. I care about building things that are
+      both mathematically sound and actually useful.
+    </p>
+  </section>
+
+  <!-- ── SKILLS ─────────────────────────────────────────────────── -->
+  <section id="skills" class="fade-up">
+    <div class="section-label">Skills</div>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-card-title">ML & Deep Learning</div>
+        <div class="skill-tags">
+          <span class="tag">PyTorch</span>
+          <span class="tag">Neural Networks</span>
+          <span class="tag">Self-Organizing Maps</span>
+          <span class="tag">Regression</span>
+          <span class="tag">System Identification</span>
+          <span class="tag">RAG (learning)</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-title">Control & Robotics</div>
+        <div class="skill-tags">
+          <span class="tag">LQR / SMC</span>
+          <span class="tag">Observer Design</span>
+          <span class="tag">UAV / AUV Control</span>
+          <span class="tag">Trajectory Tracking</span>
+          <span class="tag">PSO / SA / GSA</span>
+          <span class="tag">Digital Twins</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-title">Programming</div>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">MATLAB</span>
+          <span class="tag">SCILAB</span>
+          <span class="tag">Shell Scripting</span>
+          <span class="tag">Arduino IDE</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-title">Hardware & Experimentation</div>
+        <div class="skill-tags">
+          <span class="tag">Quanser SRV02</span>
+          <span class="tag">Q8-USB DAQ</span>
+          <span class="tag">VoltPAQ-X1</span>
+          <span class="tag">HIL Validation</span>
+          <span class="tag">Inverted Pendulum</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-title">Domain Knowledge</div>
+        <div class="skill-tags">
+          <span class="tag">EU MDR 2017/745</span>
+          <span class="tag">Medical Imaging</span>
+          <span class="tag">API Management</span>
+          <span class="tag">Kinematics Modelling</span>
+          <span class="tag">Salesforce</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-card-title">Currently Learning</div>
+        <div class="skill-tags">
+          <span class="tag gray">LangChain</span>
+          <span class="tag gray">FAISS / Vector DB</span>
+          <span class="tag gray">MLOps</span>
+          <span class="tag gray">Transformers (TS)</span>
+          <span class="tag gray">LLM Fine-tuning</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE ────────────────────────────────────────────── -->
+  <section id="experience" class="fade-up">
+    <div class="section-label">Experience</div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-meta">
+          <span class="tl-role">PhD Researcher</span>
+          <span class="tl-org">NIT Sikkim</span>
+          <span class="tl-period">2023 – Present</span>
+        </div>
+        <div class="tl-desc">
+          AI-based control systems for UAVs & AUVs. Computer vision (SOM) for robotic hand dynamics.
+          PyTorch custom model training. PSO/SA-optimized controllers validated on Quanser hardware.
+          Contributor to MoE-funded power grid resilience project (MTR/2021/000484).
+        </div>
+        <div class="tl-pills">
+          <span class="tag">PyTorch</span><span class="tag">MATLAB</span>
+          <span class="tag">PSO</span><span class="tag">UAV</span><span class="tag">AUV</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-meta">
+          <span class="tl-role">M.Tech Researcher</span>
+          <span class="tl-org">NIT Sikkim</span>
+          <span class="tl-period">2021 – 2023</span>
+        </div>
+        <div class="tl-desc">
+          State feedback + observer design for AUV depth control. PSO-based pole placement for
+          active suspension. PSO-SMC for UAV trajectory tracking. CGPA: 8.54/10.
+        </div>
+        <div class="tl-pills">
+          <span class="tag">LQR</span><span class="tag">SMC</span>
+          <span class="tag">Simulated Annealing</span><span class="tag">Control Design</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-meta">
+          <span class="tl-role">Systems Analyst</span>
+          <span class="tl-org">Tata Consultancy Services</span>
+          <span class="tl-period">2017 – 2021</span>
+        </div>
+        <div class="tl-desc">
+          Multi-domain analyst across: Apigee API management & automation; EU MDR regulatory
+          gap analysis for medical devices; 3D bone model alignment (Smith & Nephew) using
+          Geomagic & NX; QA complaint handling (DE / DHR). Employee of the Month × 3.
+        </div>
+        <div class="tl-pills">
+          <span class="tag">Apigee</span><span class="tag">EU MDR</span>
+          <span class="tag">Geomagic</span><span class="tag">Salesforce</span>
+          <span class="tag">QA</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── PUBLICATIONS ──────────────────────────────────────────── -->
+  <section id="publications" class="fade-up">
+    <div class="section-label">Research & Publications</div>
+    <div class="pub-list">
+
+      <div class="pub-item">
+        <div class="pub-type">Journal · Published</div>
+        <div class="pub-title">Optimized Integrator-Based LQR Control for Improved Vehicle Performance of Semi-Active Suspension System</div>
+        <div class="pub-venue">G. Srivastava & A.K. Ray — Journal of Vibration Engineering & Technologies, Springer, 2025</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-type">Journal · Under Review</div>
+        <div class="pub-title">Model Free Resolutions of Forward and Inverse Kinematics for Digital Twin Based Robotic Hand and Manipulator</div>
+        <div class="pub-venue">O. Singh, G. Srivastava & A.K. Ray — IEEE Transactions on Human-Machine Systems, 2025</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-type">Conference · Accepted</div>
+        <div class="pub-title">Improved PEM Fuel Cell Parameter Identification through Polynomial Regression Assisted PSO</div>
+        <div class="pub-venue">O. Singh, A.K. Ray & G. Srivastava — IEEE STPEC, NIT Goa, 2025</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-type">Conference · 2024</div>
+        <div class="pub-title">Simulated Annealing Based Tracking Control of Rotary Double Inverted Pendulum with Experimental Validation</div>
+        <div class="pub-venue">G. Srivastava, O. Singh & A.K. Ray — AEOTIT, NIT Surat, 2024</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-type">Conference · 2024</div>
+        <div class="pub-title">PSO Optimized Observer-Based Load Frequency Controller with Reduced Particle Dimension</div>
+        <div class="pub-venue">G. Srivastava & A.K. Ray — IEEE ICPEIECS, Delhi Technological University, 2024</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-type">Conference · 2023</div>
+        <div class="pub-title">Optimized Lateral Motion Control of Boeing 747 using Particle Swarm Optimization</div>
+        <div class="pub-venue">G. Srivastava, M. Sethi, N. Cintury & A.K. Ray — AEOTIT, NIT Surat, 2023</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── EDUCATION ─────────────────────────────────────────────── -->
+  <section id="education" class="fade-up">
+    <div class="section-label">Education</div>
+    <div class="edu-grid">
+
+      <div class="edu-card">
+        <div class="edu-degree">PhD — Electrical Engineering</div>
+        <div class="edu-inst">NIT Sikkim</div>
+        <div class="edu-detail">Control Applications in Robotics & Intelligent Systems<br>CGPA 8.54 · 2023–Present</div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-degree">M.Tech — Control, Power & Electric Drives</div>
+        <div class="edu-inst">NIT Sikkim</div>
+        <div class="edu-detail">CGPA 8.54 · 2021–2023</div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-degree">B.Tech — Electrical Engineering</div>
+        <div class="edu-inst">Dayalbagh Educational Institute, Agra</div>
+        <div class="edu-detail">CGPA 8.54 · 2013–2017</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CONTACT ───────────────────────────────────────────────── -->
+  <section id="contact" class="fade-up">
+    <div class="section-label">Contact</div>
+    <div class="contact-box">
+      <p>Open to research collaborations, ML engineering roles, and conversations
+         about intelligent systems. Feel free to reach out.</p>
+      <a class="btn" href="mailto:geetasrivastava@nitsikkim.ac.in">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        Say hello
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<!-- ── FOOTER ──────────────────────────────────────────────────── -->
+<footer>
+  <span>© 2025 Geeta Srivastava</span>
+  <span>NIT Sikkim · Robotics & AI Research</span>
+</footer>
+
+<!-- ── SCROLL ANIMATION ─────────────────────────────────────────── -->
+<script>
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
